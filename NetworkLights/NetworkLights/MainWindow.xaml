@@ -3,28 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="NetworkLights" Height="411" Width="525" ResizeMode="NoResize">
     <Grid>
-        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="50" Margin="10,36,0,0" Stroke="Black" VerticalAlignment="Top" Width="50"/>
-        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="50" Margin="10,91,0,0" Stroke="Black" VerticalAlignment="Top" Width="50"/>
-        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="50" Margin="10,146,0,0" Stroke="Black" VerticalAlignment="Top" Width="50"/>
-        <Ellipse x:Name="DNSStatus" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="50" Margin="10,201,0,0" Stroke="Black" VerticalAlignment="Top" Width="50"/>
-        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="50" Margin="10,256,0,0" Stroke="Black" VerticalAlignment="Top" Width="50"/>
-        <Button Content="Check Network" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="116" Height="38" Margin="200,0,203,10" Click="Button_Click"/>
-        <CheckBox Content="Wireless AP" HorizontalAlignment="Left" Margin="51,346,0,0" VerticalAlignment="Top"/>
+        <Ellipse x:Name="LocalIpStatus" Fill="Gray" HorizontalAlignment="Left" Height="50" Margin="10,36,0,0" Stroke="Black" VerticalAlignment="Top" Width="50"/>
+        <Ellipse x:Name="WapStatus" Fill="Gray" HorizontalAlignment="Left" Height="50" Margin="10,91,0,0" Stroke="Black" VerticalAlignment="Top" Width="50"/>
+        <Ellipse x:Name="RouterStatus" Fill="Gray" HorizontalAlignment="Left" Height="50" Margin="10,146,0,0" Stroke="Black" VerticalAlignment="Top" Width="50"/>
+        <Ellipse x:Name="DNSStatus" Fill="Gray" HorizontalAlignment="Left" Height="50" Margin="10,201,0,0" Stroke="Black" VerticalAlignment="Top" Width="50"/>
+        <Ellipse x:Name="InternetStatus" Fill="Gray" HorizontalAlignment="Left" Height="50" Margin="10,256,0,0" Stroke="Black" VerticalAlignment="Top" Width="50"/>
+        <Button x:Name="NetworkBtn" Content="Check Network" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="116" Height="38" Margin="200,0,203,10" Click="NetworkBtn_Click"/>
+        <CheckBox Content="Wireless AP" HorizontalAlignment="Left" Margin="51,346,0,0" VerticalAlignment="Top" IsEnabled="False" ToolTip="Future feature!"/>
         <Label Content="IP Address" HorizontalAlignment="Left" Margin="111,49,0,0" VerticalAlignment="Top"/>
         <Label Content="Wireless AP" HorizontalAlignment="Left" Margin="111,104,0,0" VerticalAlignment="Top"/>
         <Label Content="Router" HorizontalAlignment="Left" Margin="111,159,0,0" VerticalAlignment="Top"/>
         <Label Content="DNS" HorizontalAlignment="Left" Margin="111,212,0,0" VerticalAlignment="Top"/>
         <Label Content="Internet" HorizontalAlignment="Left" Margin="111,268,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="229,100,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" ToolTip="Wireless AP IP Address"/>
-        <TextBox x:Name="RouterIPTextbox" HorizontalAlignment="Left" Height="23" Margin="229,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" ToolTip="Router IP Address"/>
-        <TextBox x:Name="DNSTextbox" HorizontalAlignment="Left" Height="23" Margin="229,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" ToolTip="DNS IP Address" Text="8.8.8.8"/>
-        <TextBox x:Name="InternetAddressTextbox" HorizontalAlignment="Left" Height="23" Margin="229,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" ToolTip="Internet Address"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="229,100,0,0" TextWrapping="Wrap" Text="192.168.0.20" VerticalAlignment="Top" Width="100" ToolTip="Wireless AP IP Address" TextAlignment="Center"/>
+        <TextBox x:Name="RouterIPTextbox" HorizontalAlignment="Left" Height="23" Margin="229,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" ToolTip="Router IP Address" Text="192.168.0.1" TextAlignment="Center"/>
+        <TextBox x:Name="DNSTextbox" HorizontalAlignment="Left" Height="23" Margin="229,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" ToolTip="DNS IP Address" Text="8.8.8.8" TextAlignment="Center"/>
+        <TextBox x:Name="InternetAddressTextbox" HorizontalAlignment="Left" Height="23" Margin="229,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" ToolTip="Internet Address" Text="http://www.google.com"/>
         <Label x:Name="LocalIP" Content="Initializing..." HorizontalAlignment="Left" Margin="229,49,0,0" VerticalAlignment="Top" Width="120" ToolTip="Local IP Address"/>
-        <Button x:Name="IPTestBtn" Content="Button" HorizontalAlignment="Left" Margin="396,55,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="WAPTestBtn" Content="Button" HorizontalAlignment="Left" Margin="396,108,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="RouterTestBtn" Content="Button" HorizontalAlignment="Left" Margin="396,158,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="DNSTestBtn" Content="Button" HorizontalAlignment="Left" Margin="396,218,0,0" VerticalAlignment="Top" Width="75" Click="DNSTestBtn_Click"/>
-        <Button x:Name="InternetTestBtn" Content="Button" HorizontalAlignment="Left" Margin="396,272,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="IPTestBtn" Content="Test IP" HorizontalAlignment="Left" Margin="396,55,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="WAPTestBtn" Content="Test WAP" HorizontalAlignment="Left" Margin="396,108,0,0" VerticalAlignment="Top" Width="75" Click="WAPTestBtn_Click"/>
+        <Button x:Name="RouterTestBtn" Content="Test Router" HorizontalAlignment="Left" Margin="396,158,0,0" VerticalAlignment="Top" Width="75" Click="RouterTestBtn_Click"/>
+        <Button x:Name="DNSTestBtn" Content="Test DNS" HorizontalAlignment="Left" Margin="396,218,0,0" VerticalAlignment="Top" Width="75" Click="DNSTestBtn_Click"/>
+        <Button x:Name="InternetTestBtn" Content="Test Internet" HorizontalAlignment="Left" Margin="396,272,0,0" VerticalAlignment="Top" Width="75" Click="InternetTestBtn_Click"/>
+        <Button x:Name="ResetBtn" Content="Reset" HorizontalAlignment="Left" Margin="396,343,0,0" VerticalAlignment="Top" Width="75" Click="ResetBtn_Click"/>
 
     </Grid>
 </Window>

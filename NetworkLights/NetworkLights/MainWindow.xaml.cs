@@ -22,12 +22,21 @@ namespace NetworkLights
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public Ping sendPing = new Ping();
+
+        public PingOptions sendOptions = new PingOptions(128,true);
+                                                        //Ttl,DontFragment
+        public static string sendData = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        public byte[] sendBuffer = Encoding.ASCII.GetBytes(sendData);
+        public int sendTimeout = 120;
+        
+        private void NetworkBtn_Click(object sender, RoutedEventArgs e)
         {
             
         }
@@ -36,18 +45,9 @@ namespace NetworkLights
         {
             string dnsIPAddress = DNSTextbox.Text;
 
-            Ping dnsPing = new Ping();
-            PingOptions dnsOptions = new PingOptions();
-
-            dnsOptions.DontFragment = true;
-
-            string dnsData = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-            byte[] dnsBuffer = Encoding.ASCII.GetBytes(dnsData);
-            int dnsTimeout = 120;
-
             try
             {
-                PingReply reply = dnsPing.Send(dnsIPAddress, dnsTimeout, dnsBuffer, dnsOptions);
+                PingReply reply = sendPing.Send(dnsIPAddress, sendTimeout, sendBuffer, sendOptions);
 
                 if (reply.Status == IPStatus.Success)
                 {
@@ -64,5 +64,86 @@ namespace NetworkLights
                 throw;
             }
         }
+
+        private void RouterTestBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string routerIPAddress = RouterIPTextbox.Text;
+
+            try
+            {
+                PingReply reply = sendPing.Send(routerIPAddress, sendTimeout, sendBuffer, sendOptions);
+
+                if (reply.Status == IPStatus.Success)
+                {
+                    RouterStatus.Fill = new SolidColorBrush(Colors.Green);
+                }
+                else
+                {
+                    RouterStatus.Fill = new SolidColorBrush(Colors.Red);
+                }
+            }
+            catch (PingException)
+            {
+                //
+                throw;
+            }
+        }
+
+        private void ResetBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LocalIpStatus.Fill = new SolidColorBrush(Colors.Gray);
+            WapStatus.Fill = new SolidColorBrush(Colors.Gray);
+            RouterStatus.Fill = new SolidColorBrush(Colors.Gray);
+            DNSStatus.Fill = new SolidColorBrush(Colors.Gray);
+            InternetStatus.Fill = new SolidColorBrush(Colors.Gray);
+        }
+
+        private void WAPTestBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string wapIPAddress = RouterIPTextbox.Text;
+
+            try
+            {
+                PingReply reply = sendPing.Send(wapIPAddress, sendTimeout, sendBuffer, sendOptions);
+
+                if (reply.Status == IPStatus.Success)
+                {
+                    WapStatus.Fill = new SolidColorBrush(Colors.Green);
+                }
+                else
+                {
+                    WapStatus.Fill = new SolidColorBrush(Colors.Red);
+                }
+            }
+            catch (PingException)
+            {
+                //
+                throw;
+            }
+        }
+
+        private void InternetTestBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string internetIPAddress = RouterIPTextbox.Text;
+
+            try
+            {
+                PingReply reply = sendPing.Send(internetIPAddress, sendTimeout, sendBuffer, sendOptions);
+
+                if (reply.Status == IPStatus.Success)
+                {
+                    InternetStatus.Fill = new SolidColorBrush(Colors.Green);
+                }
+                else
+                {
+                    InternetStatus.Fill = new SolidColorBrush(Colors.Red);
+                }
+            }
+            catch (PingException)
+            {
+                //
+                throw;
+            }
+        }
     }
-}
+} 
